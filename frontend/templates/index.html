@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>SyncView 3.0 | Reader–Writer Lab</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+<div class="app-shell">
+<aside class="sidebar">
+  <div class="brand"><div class="brand-mark">S</div><div><b>SyncView</b><small>OS LAB SIMULATOR</small></div></div>
+  <div class="nav-label">WORKSPACE</div>
+  <a class="nav-item active" href="#overview"><span>◫</span> Overview</a>
+  <a class="nav-item" href="#controls"><span>⌘</span> Simulation Controls</a>
+  <a class="nav-item" href="#monitor"><span>▦</span> Live Monitor</a>
+  <a class="nav-item" href="#activity"><span>≋</span> Activity Log</a>
+  <div class="sidebar-bottom"><div class="status-dot"></div><div><b>Engine status</b><small id="side-status">Offline</small></div><span class="version">v3.0</span></div>
+</aside>
+<main class="main-content">
+<header class="topbar"><div><div class="eyebrow">OPERATING SYSTEMS / SYNCHRONIZATION</div><h1>Reader–Writer Problem</h1></div><div class="top-right"><span class="live-pill"><i></i><span id="connection-label">READY</span></span><div class="avatar">RW</div></div></header>
+<section id="overview" class="hero">
+ <div class="hero-copy"><div class="tag">INTERACTIVE SIMULATION <span>●</span></div><h2>Understand concurrency.<br><em>See synchronization.</em></h2><p>Launch reader and writer threads, observe semaphore coordination, and watch shared-resource access happen in real time.</p>
+ <div class="hero-actions"><button class="btn btn-primary" id="startBtn">▶ &nbsp; Start simulation</button><button class="btn btn-outline" id="stopBtn">■ &nbsp; Stop</button></div></div>
+ <div class="resource-art"><div class="orbit orbit-one"></div><div class="orbit orbit-two"></div><div class="resource-core"><span>SHARED</span><b>DATA</b><small>RESOURCE</small></div><div class="node node-r">R</div><div class="node node-w">W</div><div class="node node-r node-r2">R</div><div class="orbit-caption">SYNCHRONIZED ACCESS</div></div>
+</section>
+<section class="metrics">
+ <article class="metric-card"><div class="metric-top"><span>Reader operations</span><span class="metric-icon blue">R</span></div><strong id="readerOps">0</strong><small>Completed read cycles</small></article>
+ <article class="metric-card"><div class="metric-top"><span>Writer operations</span><span class="metric-icon orange">W</span></div><strong id="writerOps">0</strong><small>Completed write cycles</small></article>
+ <article class="metric-card"><div class="metric-top"><span>Active readers</span><span class="metric-icon violet">◉</span></div><strong id="activeReaders">0</strong><small>Inside read section</small></article>
+ <article class="metric-card"><div class="metric-top"><span>Shared value</span><span class="metric-icon green">↗</span></div><strong id="sharedValue">0</strong><small>Writer update count</small></article>
+</section>
+<section id="controls" class="section-grid">
+ <article class="panel control-panel"><div class="panel-heading"><div><div class="eyebrow">CONTROL CENTER</div><h3>Manage threads</h3></div><span class="panel-badge">LIVE</span></div>
+ <p class="muted">Add worker threads while the engine is running. Each thread performs three operations.</p>
+ <div class="worker-actions"><button class="worker-btn reader-btn" id="addReader"><span class="worker-symbol">R</span><span><b>Add Reader</b><small>Concurrent read access</small></span><span class="plus">＋</span></button><button class="worker-btn writer-btn" id="addWriter"><span class="worker-symbol">W</span><span><b>Add Writer</b><small>Exclusive write access</small></span><span class="plus">＋</span></button></div>
+ <div class="control-row"><button class="btn btn-soft" id="pauseBtn">Ⅱ &nbsp; Pause</button><button class="btn btn-soft" id="resumeBtn">▶ &nbsp; Resume</button><button class="btn btn-quiet" id="resetBtn">↻ Reset</button></div>
+ <div class="notice">ⓘ Pause prevents workers from starting their next operation. Any operation already inside its critical section completes safely.</div>
+ </article>
+ <article class="panel" id="monitor"><div class="panel-heading"><div><div class="eyebrow">SYNCHRONIZATION</div><h3>Live semaphore monitor</h3></div><span class="lock-state" id="lockState">UNLOCKED</span></div>
+ <div class="semaphore-box"><div class="sem-visual"><div class="sem-lock" id="semLock">♙</div><b>resource</b><small>Binary semaphore</small></div><div class="sem-details"><div><span class="legend-dot blue-dot"></span><span>Readers inside</span><b id="readerCount">0</b></div><div><span class="legend-dot orange-dot"></span><span>Writers active</span><b id="writerActive">0</b></div><div><span class="legend-dot gray-dot"></span><span>Access rule</span><b>Shared / Exclusive</b></div></div></div>
+ <div class="thread-counts"><div><span>Reader threads created</span><b id="readerThreads">0</b></div><div><span>Writer threads created</span><b id="writerThreads">0</b></div></div></article>
+</section>
+<section id="activity" class="panel activity-panel"><div class="panel-heading"><div><div class="eyebrow">EVENT STREAM</div><h3>Live activity</h3></div><span class="stream-status"><i></i> Streaming</span></div><div class="activity-head"><span>EVENT</span><span>THREAD</span><span>DETAIL</span><span>STATUS</span></div><div id="activityList" class="activity-list"><div class="empty-state">Start the simulation and add readers or writers to see real C-thread events here.</div></div></section>
+<footer>SyncView 3.0 <span>Built with C · POSIX Threads · Semaphores · Flask</span></footer>
+</main></div>
+<div id="toast" class="toast"></div>
+<script src="{{ url_for('static', filename='app.js') }}"></script>
+</body></html>
